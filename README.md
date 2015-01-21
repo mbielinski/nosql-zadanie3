@@ -10,8 +10,7 @@ Dysk Twardy: WD Red 1TB WD10EFRX (64MB, SATA/600)
 
 System : Windows 7 Professional x64
 
-#Zadanie 3
-
+#Zadanie 3 - część 1
 Najpierw wykonałem konwersję pliku txt do csv w powershell'u.
 ```sh
  import-csv word_list.txt -delimiter " " | export-csv wordlist.csv
@@ -33,3 +32,46 @@ TotalMinutes      : 0,0178210216666667
 TotalSeconds      : 1,0692613
 TotalMilliseconds : 1069,2613
 ```
+
+Skrypt mapReduce:
+```sh
+map = function() {  
+  var alfabetycznie = Array.sum(this.Word.split("").sort().join(""));
+  emit(alfabetycznie, this.Word );  
+};
+reduce = function(key, values) {  
+  return values.toString();  
+};
+db.wordlist.mapReduce(map,  reduce,
+  {
+    out: "result"
+  }
+);
+
+```
+Skrypt wykonałem w robomongo:
+```sh
+{
+    "result" : "result",
+    "timeMillis" : 726,
+    "counts" : {
+        "input" : 8199,
+        "emit" : 8199,
+        "reduce" : 914,
+        "output" : 7011
+    },
+    "ok" : 1,
+```
+db.result.count();
+```sh
+7011
+```
+Przykładowy element :
+```sh
+db.result.find().sort({_id:1}).limit(1);
+{
+    "_id" : "aaabcl",
+    "value" : "cabala"
+}
+```
+#Zadanie 3 - część 2
