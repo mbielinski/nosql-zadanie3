@@ -62,8 +62,11 @@ Skrypt wykonałem w robomongo:
     },
     "ok" : 1,
 ```
-db.result.count();
+W naszym pliku jest 914 anagramów.
+
+Ilość elementów w wynikowej kolekcji:
 ```sh
+db.result.count();
 7011
 ```
 Przykładowy element :
