@@ -16,7 +16,7 @@ Najpierw wykonałem konwersję pliku txt do csv w powershell'u.
  import-csv word_list.txt -delimiter " " | export-csv wordlist.csv
 ```
 
-Następnie zaimportowałem plik csv do mongodb.
+Następnie zaimportowałem plik csv do mongodb (wersja 2.6.5 standard).
 ```sh
 	Measure-Command  {.\mongoimport.exe -db zad3 -c wordlist --file "C:\temp\wordlist.csv" -f "Word" --type csv}
 	
