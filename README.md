@@ -16,7 +16,8 @@ Najpierw wykonałem konwersję pliku txt do csv w powershell'u.
  import-csv word_list.txt -delimiter " " | export-csv wordlist.csv
 ```
 
-Następnie zaimportowałem plik csv do mongodb (wersja 2.6.5 standard).
+Następnie zaimportowałem plik csv do mongodb:
+(wersja 2.6.5 standard)
 ```sh
 	Measure-Command  {.\mongoimport.exe -db zad3 -c wordlist --file "C:\temp\wordlist.csv" -f "Word" --type csv}
 	
@@ -32,6 +33,23 @@ TotalMinutes      : 0,0178210216666667
 TotalSeconds      : 1,0692613
 TotalMilliseconds : 1069,2613
 ```
+(wersja 3.0) - widać zdecydowaną różnicę w wynikach (musiałem minimalnie zmienić komendę).
+```sh
+	 Measure-Command  { .\mongoimport.exe --db zad3 --collection wordlist2 --type csv --file "C:\temp\wordlist.csv" -f "Word"}
+	
+Days              : 0
+Hours             : 0
+Minutes           : 0
+Seconds           : 0
+Milliseconds      : 228
+Ticks             : 2287205
+TotalDays         : 2,64722800925926E-06
+TotalHours        : 6,35334722222222E-05
+TotalMinutes      : 0,00381200833333333
+TotalSeconds      : 0,2287205
+TotalMilliseconds : 228,7205
+```
+
 
 Skrypt mapReduce:
 ```sh
