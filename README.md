@@ -34,6 +34,7 @@ TotalSeconds      : 1,0692613
 TotalMilliseconds : 1069,2613
 ```
 (wersja 3.0) - widać zdecydowaną różnicę w wynikach (musiałem minimalnie zmienić komendę).
+
 ```sh
 	 Measure-Command  { .\mongoimport.exe --db zad3 --collection wordlist2 --type csv --file "C:\temp\wordlist.csv" -f "Word"}
 	
@@ -49,7 +50,8 @@ TotalMinutes      : 0,00381200833333333
 TotalSeconds      : 0,2287205
 TotalMilliseconds : 228,7205
 ```
-
+W tej wersji mongo pojawia się pasek postępu importowanego pliku.
+![Train](https://github.com/mbielinski/nosql-zadanie3/blob/master/postep.png)
 
 Skrypt mapReduce:
 ```sh
@@ -99,7 +101,23 @@ db.result.find().sort({_id:1}).limit(1);
 To zadanie robiłem w mongo w wersji 3.0
 
 Najpierw podjąłem próbę konwersji XMLa na json'a za pomocą powershella ale 2 noce pracy komputera nie przynosiły efektów.
-Na linuxie udało mi się za pomocą skryptu js wykonanego przez nodejs wykonać operację w około 20 minut. Robiłem też to za pomocą ściągniętogo konwertera z internetu w javie - sama operacja była szybsza jednak później miałem problem ze strukturą tego pliku.
+Następnie próbowałem za pomocą ściągniętogo konwertera z internetu w javie - sama operacja była szybsza jednak później miałem problem ze strukturą tego pliku.
+Measure-Command  { .\java.exe -jar "\XML2CSVGenericConverter_V1.0.0.jar" -v -i "\wiki.xml" -o "\"}
+```sh
+Days              : 0
+Hours             : 0
+Minutes           : 10
+Seconds           : 44
+Milliseconds      : 350
+Ticks             : 6443506429
+TotalDays         : 0,00745776207060185
+TotalHours        : 0,178986289694444
+TotalMinutes      : 10,7391773816667
+TotalSeconds      : 644,3506429
+TotalMilliseconds : 644350,6429
+```
+![Train](https://github.com/mbielinski/nosql-zadanie3/blob/master/java.png)
+Na linuxie udało mi się za pomocą skryptu js wykonanego przez nodejs wykonać operację w około 20 minut. 
 Następnie przekonwertowałem plik Json na csv w Notepad++ bo miałem problem w imporcie do mongo pliku json.
 ```sh
 Measure-Command  { .\mongoimport.exe --db wiki --collection wiki2 --type csv --file E:\temp3\wiki.csv --headerline }
